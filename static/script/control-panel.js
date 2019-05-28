@@ -7,29 +7,24 @@ document.addEventListener('DOMContentLoaded', function(){
     let btnReverse = document.querySelector("#reverse");
 
     btnNewCar.addEventListener("click", function(){
-        newCarAndUpdateUi();
+        newCarAndUpdateUi(cars);
     });
 
     btnTurnRight.addEventListener("click", function() {
-        turnRight(getSelectedCar());
+        turnRight(getSelectedCar(cars));
     });
 
     btnTurnLeft.addEventListener("click", function() {
-        turnLeft(getSelectedCar());
+        turnLeft(getSelectedCar(cars));
     });
 
     btnForward.addEventListener("click", function() {
-        forward(getSelectedCar());
+        forward(getSelectedCar(cars));
     });
 
     btnReverse.addEventListener("click", function() {
-        reverse(getSelectedCar());
+        reverse(getSelectedCar(cars));
     });
-
-    function getSelectedCar() {
-        let car = document.querySelector("#" + cars[cars.selectedIndex].value);
-        return car;
-    }
 
     //right 39 
     //w 87
@@ -44,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function(){
     //turn right
     document.addEventListener("keydown", event => {
         if (event.keyCode === 39 || event.keyCode === 68) {
-          turnRight(getSelectedCar());
+          turnRight(getSelectedCar(cars));
         }
     });
 
@@ -52,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function(){
     //turn left
     document.addEventListener("keydown", event => {
         if (event.keyCode === 37 || event.keyCode === 65) {
-          turnLeft(getSelectedCar());
+          turnLeft(getSelectedCar(cars));
         }
     });
 
@@ -60,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function(){
     //move backward
     document.addEventListener("keydown", event => {
         if (event.keyCode === 40 || event.keyCode === 83) {
-          reverse(getSelectedCar());
+          reverse(getSelectedCar(cars));
         }
     });
 
@@ -68,14 +63,14 @@ document.addEventListener('DOMContentLoaded', function(){
     //move forward
     document.addEventListener("keydown", event => {
         if (event.keyCode === 38 || event.keyCode === 87) {
-          forward(getSelectedCar());
+          forward(getSelectedCar(cars));
         }
     });
 
     //N pressed
     document.addEventListener("keydown", event => {
         if (event.keyCode === 78) {
-            newCarAndUpdateUi();
+            newCarAndUpdateUi(cars);
         }
     });
 
@@ -89,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
     function toggleActiveCar() {
         
-        getSelectedCar().classList.toggle("selected-car");
+        getSelectedCar(cars).classList.toggle("selected-car");
 
         if((cars.options.length - 1) == cars.selectedIndex) {
             cars.selectedIndex = 0;
@@ -98,21 +93,28 @@ document.addEventListener('DOMContentLoaded', function(){
             cars.selectedIndex = cars.selectedIndex + 1;
         }
 
-        getSelectedCar().classList.toggle("selected-car");
+        getSelectedCar(cars).classList.toggle("selected-car");
     }
 
-    function newCarAndUpdateUi() {
-        if(cars.selectedIndex > -1) {
-            getSelectedCar().classList.toggle("selected-car");
-        }
-        let carId = addCar();
-        var opt = document.createElement('option');
-        opt.value = carId;
-        opt.innerHTML = carId;
-        cars.appendChild(opt);
-
-        cars.selectedIndex = cars.length - 1;
-
-        getSelectedCar().classList.toggle("selected-car");
-    }
 });
+
+function getSelectedCar(elem) {
+    let car = document.querySelector("#" + elem[elem.selectedIndex].value);
+    return car;
+}
+
+// refactor this 
+function newCarAndUpdateUi(parentElem) {
+    if(parentElem.selectedIndex > -1) {
+        getSelectedCar(parentElem).classList.toggle("selected-car");
+    }
+    let carId = addCar();
+    var opt = document.createElement('option');
+    opt.value = carId;
+    opt.innerHTML = carId;
+    parentElem.appendChild(opt);
+
+    parentElem.selectedIndex = parentElem.length - 1;
+
+    getSelectedCar(parentElem).classList.toggle("selected-car");
+}

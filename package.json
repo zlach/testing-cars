@@ -20,7 +20,8 @@
   "dependencies": {
     "chai": "^4.2.0",
     "mocha": "^6.1.4",
-    "sinon": "^7.3.2"
+    "sinon": "^7.3.2",
+    "testcafe": "^1.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
