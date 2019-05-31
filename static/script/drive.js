@@ -18,58 +18,60 @@ function forward(car) {
 }
 
 function turnRight(car) {
+    console.log(car)
     let direction = getDirection(car);
-    turnIt(car, direction, RIGHT);
+    car.classList = turnIt(car.className, direction, RIGHT);
+
+    console.log(car.classList, car.className)
+
+    return car.classList;
 }
 
 function turnLeft(car) {
     let direction = getDirection(car);
-    turnIt(car, direction, LEFT);
+
+    car.classList = turnIt(car.className, direction, LEFT);
 }
 
-function turnIt(car, direction, cmd) {
+function turnIt(classes, direction, cmd) {
+    let updatedClasses;
+
     switch(direction) {
         case NORTH:
             if(cmd == RIGHT) {
-                car.classList.toggle("north");
-                car.classList.add("east");
+                updatedClasses = classes.replace("north", "east");
             }
             else if (cmd == LEFT) {
-                car.classList.toggle("north");
-                car.classList.add("west");
+                updatedClasses = classes.replace("north", "west");
             }
             break;
         case SOUTH:
             if(cmd == RIGHT) {
-                car.classList.toggle("south");
-                car.classList.add("west");
+                updatedClasses = classes.replace("south", "west");
             }
             else if (cmd == LEFT) {
-                car.classList.toggle("south");
-                car.classList.add("east");
+                updatedClasses = classes.replace("south", "east");
             }
             break;
         case EAST:
             if(cmd == RIGHT) {
-                car.classList.toggle("east");
-                car.classList.add("south");
+                updatedClasses = classes.replace("east", "south");
             }
             else if (cmd == LEFT) {
-                car.classList.toggle("east");
-                car.classList.add("north");
+                updatedClasses = classes.replace("east", "north");
             }
             break;
         case WEST:
             if(cmd == RIGHT) {
-                car.classList.toggle("west");
-                car.classList.add("north");
+                updatedClasses = classes.replace("west", "north");
             }
             else if (cmd == LEFT) {
-                car.classList.toggle("west");
-                car.classList.add("south");
+                updatedClasses = classes.replace("west", "south");
             }
             break;
     }
+
+    return updatedClasses;
 }
 function moveIt(car, direction, cmd){
     const MOVE_VALUE = 10;

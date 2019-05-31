@@ -69,6 +69,7 @@ describe("Driving Tests", function(){
             car.style.top = "";
             car.style.left = "";
             car.className = "";
+            car.classList = "";
 
         //mocing complex objects such as DOM
             //https://codeutopia.net/blog/2016/05/23/sinon-js-quick-tip-how-to-stubmock-complex-objects-such-as-dom-objects/
@@ -315,38 +316,145 @@ describe("Driving Tests", function(){
             expect(car.style.left).to.equal('10px');
         });
     });
-    // describe('turn it from north, right', function(){
-    //     it('should change classes', function(){
-    //         car.style.top = "0px";
-    //         car.style.left = "0px";
-    //         car.className = "car north";
-    //         direction = NORTH;
-    //         cmd = RIGHT;
+    describe('turn it from north, right', function(){
+        it('should change classes', function(){
+            car.style.top = "0px";
+            car.style.left = "0px";
+            car.classList = "car north";
+            direction = NORTH;
+            cmd = RIGHT;
 
-    //         console.log(car);
+            car.classList = turnIt(car.classList, direction, cmd);
 
-    //         turnIt(car, direction, cmd);
+            expect(car.classList).to.include('car');
+            expect(car.classList).to.include('east');
+            expect(car.classList).to.not.include('north');
+        });
+    });
+    describe('turn it from north, left', function(){
+        it('should change classes', function(){
+            car.style.top = "0px";
+            car.style.left = "0px";
+            car.classList = "car north";
+            direction = NORTH;
+            cmd = LEFT;
 
-    //         console.log(car.className);
-    //         expect(car.className).to.include('car');
-    //         expect(car.className).to.include('east');
-    //         expect(car.className).to.notInclude('north');
-    //     });
-    // });
-    // describe('turn right, from facing north', function(){
-    //     it('should', function(){
-    //         car.style.top = "0px";
-    //         car.style.left = "0px";
-    //         car.className = "car north";
+            car.classList = turnIt(car.classList, direction, cmd);
 
-    //     //ACT
-    //         turnRight(car);
+            expect(car.classList).to.include('car');
+            expect(car.classList).to.include('west');
+            expect(car.classList).to.not.include('north');
+        });
+    });
+    describe('turn it from south, right', function(){
+        it('should change classes', function(){
+            car.style.top = "0px";
+            car.style.left = "0px";
+            car.classList = "car south";
+            direction = SOUTH;
+            cmd = RIGHT;
 
-    //     //ASSERT
-    //         expect(getDirection(car)).to.equal("NORTH");
-    //         expect(car.className).to.equal('east');
-    //     });
-    // });
+            car.classList = turnIt(car.classList, direction, cmd);
+
+            expect(car.classList).to.include('car');
+            expect(car.classList).to.include('west');
+            expect(car.classList).to.not.include('south');
+        });
+    });
+    describe('turn it from south, left', function(){
+        it('should change classes', function(){
+            car.style.top = "0px";
+            car.style.left = "0px";
+            car.classList = "car south";
+            direction = SOUTH;
+            cmd = LEFT;
+
+            car.classList = turnIt(car.classList, direction, cmd);
+
+            expect(car.classList).to.include('car');
+            expect(car.classList).to.include('east');
+            expect(car.classList).to.not.include('south');
+        });
+    });
+    describe('turn it from east, right', function(){
+        it('should change classes', function(){
+            car.style.top = "0px";
+            car.style.left = "0px";
+            car.classList = "car east";
+            direction = EAST;
+            cmd = RIGHT;
+
+            car.classList = turnIt(car.classList, direction, cmd);
+
+            expect(car.classList).to.include('car');
+            expect(car.classList).to.include('south');
+            expect(car.classList).to.not.include('east');
+        });
+    });
+    describe('turn it from east, left', function(){
+        it('should change classes', function(){
+            car.style.top = "0px";
+            car.style.left = "0px";
+            car.classList = "car east";
+            direction = EAST;
+            cmd = LEFT;
+
+            car.classList = turnIt(car.classList, direction, cmd);
+
+            expect(car.classList).to.include('car');
+            expect(car.classList).to.include('north');
+            expect(car.classList).to.not.include('east');
+        });
+    });
+    describe('turn it from west, right', function(){
+        it('should change classes', function(){
+            car.style.top = "0px";
+            car.style.left = "0px";
+            car.classList = "car west";
+            direction = WEST;
+            cmd = RIGHT;
+
+            car.classList = turnIt(car.classList, direction, cmd);
+
+            expect(car.classList).to.include('car');
+            expect(car.classList).to.include('north');
+            expect(car.classList).to.not.include('west');
+        });
+    });
+    describe('turn it from west, left', function(){
+        it('should change classes', function(){
+            car.style.top = "0px";
+            car.style.left = "0px";
+            car.classList = "car west";
+            direction = WEST;
+            cmd = LEFT;
+
+            car.classList = turnIt(car.classList, direction, cmd);
+
+            expect(car.classList).to.include('car');
+            expect(car.classList).to.include('south');
+            expect(car.classList).to.not.include('west');
+        });
+    });
+    describe('turn right, from facing north', function(){
+        it('should make the car face east', function(){
+            car.style.top = "0px";
+            car.style.left = "0px";
+            car.className = "car north";
+            car.classList = {
+                0: "car",
+                1: "east",
+                length: 2,
+                value: "car north"
+            };
+
+            turnRight(car);
+            
+            expect(car.classList).to.include('car');
+            expect(car.classList).to.include('east');
+            expect(car.classList).to.not.include('north');
+        });
+    });
     describe('get direction, north', function(){
         it('should return the direction string in all caps', function(){
             car.className = "car north";
